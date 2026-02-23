@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -218,14 +219,14 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     
-    // Admin Dashboard
-    Route::get('/', function () {
-        return view('pages.admin.dashboard');
-    })->name('admin.dashboard');
-    
-    Route::get('/dashboard', function () {
-        return view('pages.admin.dashboard');
-    })->name('admin.dashboard');
+    // Admin Dashboard (sirf ek route with name)
+Route::get('/', function () {
+    return view('pages.admin.dashboard');
+})->name('admin.dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('pages.admin.dashboard');
+// })->name('admin.dashboard'); //
     
     // Users Management
     Route::get('/users', function () {
@@ -365,7 +366,7 @@ Route::prefix('api')->middleware(['auth'])->group(function () {
     
     // User API
     Route::get('/user', function () {
-        return response()->json(auth()->user());
+        return response()->json(Auth::user());
     })->name('api.user');
     
     // Books API
